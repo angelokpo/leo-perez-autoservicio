@@ -716,6 +716,17 @@
             color: #605850;
         }
 
+        .footer-credit a {
+            color: #605850;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.2s;
+        }
+
+        .footer-credit a:hover {
+            color: var(--naranja);
+        }
+
         @media (max-width: 768px) {
             .footer-inner {
                 grid-template-columns: 1fr;
@@ -1456,7 +1467,7 @@
 
         <div class="footer-bottom">
             <p>&copy; <span id="footerYear"></span> Leo Perez Autoservicio · Sunchales, Santa Fe · Todos los derechos reservados</p>
-            <p class="footer-credit">Hecho por Ángelo Danna</p>
+            <p class="footer-credit">Hecho por <a href="https://www.instagram.com/angelodanna_" target="_blank" rel="noopener">Ángelo Danna</a></p>
         </div>
     </footer>
 
