@@ -256,6 +256,25 @@
             border-color: var(--naranja);
         }
 
+        .btn-instagram-nav {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 16px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-instagram-nav:hover { background: rgba(255, 255, 255, 0.2); }
+        .btn-instagram-nav i { color: var(--naranja); font-size: 1.05rem; }
+
         /* 3. Hero de encabezado con foto día/noche */
         .hero-section {
             width: 100%;
@@ -1261,6 +1280,9 @@
             .btn-account-nav { padding: 9px 11px; border-radius: 25px; }
             .btn-account-nav .account-text { display: none; }
 
+            .btn-instagram-nav { padding: 9px 11px; border-radius: 25px; }
+            .btn-instagram-nav .instagram-text { display: none; }
+
             .hero-header { height: 320px; }
             .hero-content { padding: 22px 22px; }
             .hero-content h2 { font-size: 1.55rem; }
@@ -1311,6 +1333,11 @@
                 <label for="searchInput" class="sr-only" style="position:absolute;left:-9999px;">Buscar productos</label>
                 <input type="text" id="searchInput" placeholder="Buscá bebidas, almacén, kiosco..." onkeyup="searchFilter()">
             </div>
+
+            <a href="https://www.instagram.com/leoperezautoservicio" target="_blank" rel="noopener" class="btn-instagram-nav heading-font" aria-label="Instagram de Leo Perez Autoservicio">
+                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                <span class="instagram-text">@leoperezautoservicio</span>
+            </a>
 
             <button class="btn-account-nav heading-font" id="accountNavBtn" onclick="openAccountModal()" aria-label="Mi cuenta">
                 <i class="fa-solid fa-user" aria-hidden="true"></i>
