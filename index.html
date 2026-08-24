@@ -1707,6 +1707,18 @@
         const STORE_NAME = "Leo Perez Autoservicio";
         const TRANSFER_ALIAS = "angelo.danna555"; // Alias para transferencias / Mercado Pago
 
+        // Límite geográfico de la localidad de Sunchales (fuente: OpenStreetMap/Nominatim),
+        // usado para no aceptar direcciones ni ubicaciones de mapa fuera del pueblo.
+        const SUNCHALES_BOUNDS = { minLat: -30.9678740, maxLat: -30.9247817, minLon: -61.5774281, maxLon: -61.4991315 };
+        const SUNCHALES_PADDING = 0.01; // margen extra en grados para no ser demasiado estricto en los bordes
+
+        function isWithinSunchales(lat, lon) {
+            return lat >= SUNCHALES_BOUNDS.minLat - SUNCHALES_PADDING &&
+                   lat <= SUNCHALES_BOUNDS.maxLat + SUNCHALES_PADDING &&
+                   lon >= SUNCHALES_BOUNDS.minLon - SUNCHALES_PADDING &&
+                   lon <= SUNCHALES_BOUNDS.maxLon + SUNCHALES_PADDING;
+        }
+
         // Horario real de atención. Cada día puede tener uno o más rangos ("09:00" a "13:30", etc).
         // Los rangos que cruzan la medianoche (ej. viernes 17:00 a 01:00) se escriben tal cual,
         // la lógica de más abajo entiende que el cierre "01:00" cae en el día siguiente.
@@ -2328,7 +2340,16 @@
         function initDeliveryMap() {
             if (mapInstance !== null) return;
 
-            mapInstance = L.map('map').setView(STORE_COORDS, 15);
+            const bounds = L.latLngBounds(
+                [SUNCHALES_BOUNDS.minLat - SUNCHALES_PADDING, SUNCHALES_BOUNDS.minLon - SUNCHALES_PADDING],
+                [SUNCHALES_BOUNDS.maxLat + SUNCHALES_PADDING, SUNCHALES_BOUNDS.maxLon + SUNCHALES_PADDING]
+            );
+
+            mapInstance = L.map('map', {
+                maxBounds: bounds,
+                maxBoundsViscosity: 1.0,
+                minZoom: 13
+            }).setView(STORE_COORDS, 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 19
@@ -2344,18 +2365,24 @@
 
             mapMarker = L.marker(currentMarkerCoords, { draggable: true }).addTo(mapInstance);
 
+            function handleMarkerMove(lat, lng) {
+                if (!isWithinSunchales(lat, lng)) {
+                    mapMarker.setLatLng(currentMarkerCoords);
+                    document.getElementById('coordsLabel').innerText = 'Ese punto está fuera de Sunchales. Elegí una ubicación dentro del pueblo.';
+                    return;
+                }
+                currentMarkerCoords = [lat, lng];
+                document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${lat.toFixed(4)}, Lng ${lng.toFixed(4)}`;
+                updateShippingByDistance();
+            }
+
             mapMarker.on('dragend', function () {
                 const position = mapMarker.getLatLng();
-                currentMarkerCoords = [position.lat, position.lng];
-                document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${position.lat.toFixed(4)}, Lng ${position.lng.toFixed(4)}`;
-                updateShippingByDistance();
+                handleMarkerMove(position.lat, position.lng);
             });
 
             mapInstance.on('click', function(e) {
-                mapMarker.setLatLng(e.latlng);
-                currentMarkerCoords = [e.latlng.lat, e.latlng.lng];
-                document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${e.latlng.lat.toFixed(4)}, Lng ${e.latlng.lng.toFixed(4)}`;
-                updateShippingByDistance();
+                handleMarkerMove(e.latlng.lat, e.latlng.lng);
             });
 
             updateShippingByDistance();
@@ -2365,19 +2392,28 @@
             const query = document.getElementById('custAddress').value.trim();
             if (!query) return;
 
+            const coordsLabel = document.getElementById('coordsLabel');
+            const fullQuery = `${query}, Sunchales, Santa Fe, Argentina`;
+            const viewbox = `${SUNCHALES_BOUNDS.minLon},${SUNCHALES_BOUNDS.maxLat},${SUNCHALES_BOUNDS.maxLon},${SUNCHALES_BOUNDS.minLat}`;
+
             try {
-                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullQuery)}&countrycodes=ar&viewbox=${viewbox}&bounded=1`);
                 const data = await response.json();
-                if (data && data.length > 0) {
-                    const lat = parseFloat(data[0].lat);
-                    const lon = parseFloat(data[0].lon);
-                    currentMarkerCoords = [lat, lon];
-                    if (mapInstance && mapMarker) {
-                        mapInstance.setView([lat, lon], 16);
-                        mapMarker.setLatLng([lat, lon]);
-                        document.getElementById('coordsLabel').innerText = `Ubicación: ${data[0].display_name.split(',')[0]}`;
-                        updateShippingByDistance();
-                    }
+                const match = data.find(r => isWithinSunchales(parseFloat(r.lat), parseFloat(r.lon)));
+
+                if (!match) {
+                    coordsLabel.innerText = 'No encontramos esa dirección en Sunchales. Revisá la calle y la altura.';
+                    return;
+                }
+
+                const lat = parseFloat(match.lat);
+                const lon = parseFloat(match.lon);
+                currentMarkerCoords = [lat, lon];
+                if (mapInstance && mapMarker) {
+                    mapInstance.setView([lat, lon], 16);
+                    mapMarker.setLatLng([lat, lon]);
+                    coordsLabel.innerText = `Ubicación: ${match.display_name.split(',')[0]}`;
+                    updateShippingByDistance();
                 }
             } catch (err) {
                 console.log("Búsqueda no disponible");
@@ -2571,6 +2607,11 @@
                 if (!address) {
                     alert("Por favor completá tu dirección exacta.");
                     document.getElementById('custAddress').focus();
+                    return;
+                }
+
+                if (!isWithinSunchales(currentMarkerCoords[0], currentMarkerCoords[1])) {
+                    alert("El punto marcado en el mapa está fuera de Sunchales. Solo hacemos delivery dentro del pueblo: ajustá el pin o retirá por el local.");
                     return;
                 }
 
