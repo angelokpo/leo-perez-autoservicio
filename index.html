@@ -86,15 +86,21 @@
             text-transform: uppercase;
         }
 
-        .marquee-track span {
+        .marquee-track span,
+        .marquee-track a {
             display: flex;
             flex-shrink: 0;
             align-items: center;
             gap: 10px;
             margin-right: 40px;
+            color: inherit;
+            text-decoration: none;
         }
 
-        .marquee-track span i { color: var(--naranja); }
+        .marquee-track span i,
+        .marquee-track a i { color: var(--naranja); }
+
+        .marquee-track a:hover { color: var(--naranja); }
 
         /* 2. Navbar */
         header {
@@ -596,6 +602,94 @@
 
         @media (max-width: 768px) {
             .store-info-section { grid-template-columns: 1fr; }
+        }
+
+        /* 7.6 Footer */
+        .site-footer {
+            background: var(--negro);
+            color: #cfc6bb;
+            border-top: 3px solid var(--naranja);
+            margin-top: 20px;
+        }
+
+        .footer-inner {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 40px 20px 30px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .footer-brand { display: flex; align-items: flex-start; }
+
+        .footer-logo {
+            height: 64px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .footer-heading {
+            color: var(--naranja);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .footer-col p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #cfc6bb;
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: #cfc6bb;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: var(--naranja); }
+
+        .footer-social { display: flex; gap: 12px; }
+
+        .footer-social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+        }
+
+        .footer-social-btn:hover {
+            background: var(--naranja);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: #8a8178;
+        }
+
+        @media (max-width: 768px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 26px;
+                padding: 32px 20px 24px;
+            }
         }
 
         /* 7. Grilla de Productos */
@@ -1184,6 +1278,7 @@
             <span><i class="fa-solid fa-motorcycle" aria-hidden="true"></i> DELIVERY RÁPIDO A TU CASA</span>
             <span><i class="fa-solid fa-clock" aria-hidden="true"></i> ABIERTO TODOS LOS DÍAS</span>
             <span><i class="fa-solid fa-star" aria-hidden="true"></i> ALMACÉN, BEBIDAS Y KIOSCO</span>
+            <a href="https://www.instagram.com/leoperezautoservicio" target="_blank" rel="noopener"><i class="fa-brands fa-instagram" aria-hidden="true"></i> @LEOPEREZAUTOSERVICIO</a>
         </div>
     </div>
 
@@ -1294,6 +1389,38 @@
             <table class="store-hours-table" id="storeHoursTable"></table>
         </div>
     </section>
+
+    <!-- 7.6 Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="logo.png" alt="Leo Perez Autoservicio" class="footer-logo" onerror="this.onerror=null; this.src=LOGO_FALLBACK;">
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-heading">Contacto</h4>
+                <p>Cervantes 80, esquina San Javier, S2322 Sunchales, Santa Fe</p>
+                <p>Lun a Jue: 9 a 13:30 y 17 a 22hs<br>Vie y Sáb: 9 a 13:30 y 17 a 1hs<br>Dom: 10:30 a 13 y 18 a 22hs</p>
+                <p><a href="tel:+543493495150">03493 49-5150</a></p>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-heading">Seguinos</h4>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/leoperezautoservicio" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram de Leo Perez Autoservicio">
+                        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" id="footerWhatsappLink" target="_blank" rel="noopener" class="footer-social-btn" aria-label="WhatsApp de Leo Perez Autoservicio">
+                        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="footerYear"></span> Leo Perez Autoservicio · Sunchales, Santa Fe · Todos los derechos reservados</p>
+        </div>
+    </footer>
 
     <!-- 8. Botón Flotante Carrito -->
     <button class="cart-float-btn" onclick="toggleCartDrawer()" aria-label="Ver mi pedido">
@@ -1511,6 +1638,18 @@
                 alert(`Lo sentimos, estamos cerrados en este momento.${nextOpen ? ' Volvemos ' + nextOpen + '.' : ''}`);
             }
         });
+
+        document.getElementById('footerWhatsappLink').href = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUM}&text=${encodeURIComponent('Hola! Quería hacer un pedido en ' + STORE_NAME)}`;
+        document.getElementById('footerWhatsappLink').addEventListener('click', (e) => {
+            if (!isOpenNow()) {
+                e.preventDefault();
+                const nextOpen = getNextOpenLabel();
+                alert(`Lo sentimos, estamos cerrados en este momento.${nextOpen ? ' Volvemos ' + nextOpen + '.' : ''}`);
+            }
+        });
+
+        const footerYearEl = document.getElementById('footerYear');
+        if (footerYearEl) footerYearEl.textContent = new Date().getFullYear();
 
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
