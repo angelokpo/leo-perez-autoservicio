@@ -1078,6 +1078,65 @@
             font-weight: 600;
         }
 
+        .transfer-info-box {
+            background: #fff;
+            border: 1.5px solid var(--naranja);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--texto-oscuro);
+        }
+
+        .transfer-info-box .transfer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 6px 0;
+        }
+
+        .transfer-info-box .transfer-row + .transfer-row {
+            border-top: 1px dashed #f3c895;
+        }
+
+        .transfer-info-box .transfer-label {
+            font-weight: 600;
+            color: var(--naranja-deep);
+        }
+
+        .transfer-info-box .transfer-value {
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .btn-copy-alias {
+            background: var(--naranja);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .btn-copy-alias:hover {
+            background: var(--naranja-dark);
+        }
+
+        .transfer-info-box .transfer-note {
+            font-size: 0.72rem;
+            color: #8a8178;
+            margin-top: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.35;
+        }
+
         .cart-drawer-footer {
             padding: 18px 20px;
             background: #fff;
@@ -1535,10 +1594,22 @@
 
                 <div class="form-group" style="margin-top: 12px;">
                     <label for="custPayment">Forma de Pago:</label>
-                    <select id="custPayment">
+                    <select id="custPayment" onchange="calcTotals()">
                         <option value="Efectivo">Efectivo</option>
                         <option value="Transferencia / Mercado Pago">Transferencia / Mercado Pago</option>
                     </select>
+                    <div class="transfer-info-box" id="transferInfoBox" style="display:none;">
+                        <div class="transfer-row">
+                            <span class="transfer-label"><i class="fa-solid fa-at" aria-hidden="true"></i> Alias:</span>
+                            <span class="transfer-value" id="transferAliasText"></span>
+                            <button type="button" class="btn-copy-alias" id="copyAliasBtn" onclick="copyTransferAlias()">Copiar</button>
+                        </div>
+                        <div class="transfer-row">
+                            <span class="transfer-label"><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i> Monto a transferir:</span>
+                            <span class="transfer-value" id="transferAmountText">$0</span>
+                        </div>
+                        <p class="transfer-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Después de transferir, enviá el comprobante por este mismo chat de WhatsApp para confirmar tu pedido.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1631,9 +1702,10 @@
         /* =====================================================================
            CONFIGURACIÓN DEL NEGOCIO — completar con los datos reales
         ===================================================================== */
-        const WHATSAPP_NUM = "5493493443991"; // TEMPORAL: número de prueba
+        const WHATSAPP_NUM = "5493493495150"; // Número real del negocio (WhatsApp confirmado activo)
         const STORE_COORDS = [-30.9422728, -61.5432729]; // Cervantes 80, Sunchales (geolocalizado)
         const STORE_NAME = "Leo Perez Autoservicio";
+        const TRANSFER_ALIAS = "angelo.danna555"; // Alias para transferencias / Mercado Pago
 
         // Horario real de atención. Cada día puede tener uno o más rangos ("09:00" a "13:30", etc).
         // Los rangos que cruzan la medianoche (ej. viernes 17:00 a 01:00) se escriben tal cual,
@@ -2455,6 +2527,21 @@
             document.getElementById('subtotalText').innerText = `$${subtotal.toLocaleString('es-AR')}`;
             document.getElementById('shippingText').innerText = orderMode === 'delivery' ? `$${finalShipping.toLocaleString('es-AR')}` : 'GRATIS';
             document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
+
+            const isTransfer = document.getElementById('custPayment').value === 'Transferencia / Mercado Pago';
+            document.getElementById('transferInfoBox').style.display = isTransfer ? 'block' : 'none';
+            if (isTransfer) {
+                document.getElementById('transferAmountText').innerText = `$${total.toLocaleString('es-AR')}`;
+            }
+        }
+
+        function copyTransferAlias() {
+            navigator.clipboard.writeText(TRANSFER_ALIAS).then(() => {
+                const btn = document.getElementById('copyAliasBtn');
+                const original = btn.innerText;
+                btn.innerText = '¡Copiado!';
+                setTimeout(() => { btn.innerText = original; }, 1500);
+            });
         }
 
         function sendToWhatsApp() {
@@ -2519,9 +2606,18 @@
             msg += `• Envío: ${finalShipping === 0 ? 'GRATIS' : '$' + finalShipping.toLocaleString('es-AR')}\n`;
             msg += `• TOTAL: $${total.toLocaleString('es-AR')}`;
 
+            if (payment === 'Transferencia / Mercado Pago') {
+                msg += `\n\nDATOS PARA TRANSFERIR\n`;
+                msg += `• Alias: ${TRANSFER_ALIAS}\n`;
+                msg += `• Monto: $${total.toLocaleString('es-AR')}\n`;
+                msg += `\nPor favor enviá el comprobante de la transferencia por este mismo chat para confirmar el pedido.`;
+            }
+
             const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUM}&text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
         }
+
+        document.getElementById('transferAliasText').innerText = TRANSFER_ALIAS;
 
         refreshAccountNav();
         renderProducts(products);
