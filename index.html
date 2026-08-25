@@ -229,30 +229,6 @@
             font-weight: 800;
         }
 
-        .btn-account-nav {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 18px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            font-size: 0.88rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-
-        .btn-account-nav:hover { background: rgba(255, 255, 255, 0.2); }
-
-        .btn-account-nav.is-active {
-            background: var(--naranja);
-            color: #fff;
-            border-color: var(--naranja);
-        }
-
         .btn-instagram-nav {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
@@ -1152,116 +1128,6 @@
             border: 2px solid #fff;
         }
 
-        /* 10. Modal de Cuenta */
-        .account-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(20, 20, 20, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 998;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .account-overlay.show { opacity: 1; visibility: visible; }
-
-        .account-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.96);
-            width: 90%;
-            max-width: 400px;
-            max-height: 85vh;
-            overflow-y: auto;
-            background: #fff;
-            border-radius: 18px;
-            z-index: 999;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .account-modal.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .account-modal-header {
-            background: var(--negro);
-            color: #fff;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--naranja);
-            border-radius: 18px 18px 0 0;
-        }
-
-        .account-modal-header h3 { font-size: 1.05rem; font-weight: 800; }
-        .account-modal-body { padding: 20px; }
-
-        .account-hint {
-            font-size: 0.78rem;
-            color: var(--texto-mutado);
-            line-height: 1.45;
-            margin-bottom: 14px;
-        }
-
-        .account-error {
-            font-size: 0.78rem;
-            color: var(--rojo-brand);
-            font-weight: 700;
-            min-height: 16px;
-            margin: 2px 0 4px;
-        }
-
-        .btn-account-submit {
-            width: 100%;
-            background: var(--naranja);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 4px;
-        }
-
-        .btn-account-submit:hover { background: var(--naranja-dark); }
-
-        .btn-account-link {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: none;
-            border: none;
-            color: var(--naranja-dark);
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .btn-account-link--danger { color: var(--rojo-brand); }
-
-        .account-profile-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 8px 0;
-            border-bottom: 1px dashed var(--gris-borde);
-            font-size: 0.85rem;
-        }
-
-        .account-profile-row span { color: var(--texto-mutado); font-weight: 600; }
-        .account-profile-row strong { text-align: right; color: var(--texto-oscuro); font-weight: 700; }
-
         /* 11. Media Queries: Celular */
         @media (max-width: 768px) {
             .nav-wrapper { padding: 8px 12px; gap: 8px; }
@@ -1277,9 +1143,6 @@
             .btn-cart-nav { padding: 9px 14px; gap: 6px; border-radius: 25px; font-size: 1.05rem; }
             .btn-cart-nav .cart-text { display: none; }
             .cart-badge-nav { font-size: 0.75rem; padding: 2px 6px; border-radius: 10px; }
-
-            .btn-account-nav { padding: 9px 11px; border-radius: 25px; }
-            .btn-account-nav .account-text { display: none; }
 
             .btn-instagram-nav { padding: 9px 11px; border-radius: 25px; }
             .btn-instagram-nav .instagram-text { display: none; }
@@ -1339,11 +1202,6 @@
                 <i class="fa-brands fa-instagram" aria-hidden="true"></i>
                 <span class="instagram-text">@leoperezautoservicio</span>
             </a>
-
-            <button class="btn-account-nav heading-font" id="accountNavBtn" onclick="openAccountModal()" aria-label="Mi cuenta">
-                <i class="fa-solid fa-user" aria-hidden="true"></i>
-                <span class="account-text" id="accountNavLabel">Ingresar</span>
-            </button>
 
             <button class="btn-cart-nav heading-font" onclick="toggleCartDrawer()" aria-label="Ver mi pedido">
                 <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
@@ -1473,7 +1331,13 @@
             <div id="cartItemsList"></div>
 
             <div class="checkout-box">
-                <h4 class="heading-font"><i class="fa-solid fa-store" aria-hidden="true"></i> Retiro en el Local</h4>
+                <h4 class="heading-font"><i class="fa-solid fa-user" aria-hidden="true"></i> Tus Datos</h4>
+                <div class="form-group">
+                    <label for="custName">Nombre y Apellido:</label>
+                    <input type="text" id="custName" placeholder="Ej: Ángelo Danna" required>
+                </div>
+
+                <h4 class="heading-font" style="margin-top: 14px;"><i class="fa-solid fa-store" aria-hidden="true"></i> Retiro en el Local</h4>
 
                 <div class="pickup-info-box">
                     <i class="fa-solid fa-circle-check" style="color: #25d366; font-size: 1.1rem;" aria-hidden="true"></i>
@@ -1517,53 +1381,6 @@
         </div>
     </div>
 
-    <!-- 10. Modal de Cuenta -->
-    <div class="account-overlay" id="accountOverlay" onclick="closeAccountModal()"></div>
-    <div class="account-modal" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accModalTitle">
-        <div class="account-modal-header">
-            <h3 class="heading-font" id="accModalTitle">Guardá tus datos</h3>
-            <button class="btn-icon-close" onclick="closeAccountModal()" aria-label="Cerrar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
-        </div>
-        <div class="account-modal-body">
-            <p class="account-hint">Guardamos tu nombre y dirección en este celular para que la próxima compra sea más rápida. No es una cuenta en la nube: si cambiás de dispositivo, cargás los datos de nuevo.</p>
-
-            <form id="accCreateView" onsubmit="submitCreateAccount(event)">
-                <div class="form-group">
-                    <label for="accName">Nombre:</label>
-                    <input type="text" id="accName" placeholder="Ej: Ángelo" required>
-                </div>
-                <div class="form-group">
-                    <label for="accPhone">WhatsApp:</label>
-                    <input type="tel" id="accPhone" placeholder="Ej: 3493 443991" required>
-                </div>
-                <div class="form-group">
-                    <label for="accPin">PIN de 4 números (para volver a entrar en este celular):</label>
-                    <input type="password" id="accPin" inputmode="numeric" pattern="\d{4}" maxlength="4" placeholder="••••" required>
-                </div>
-                <p class="account-error" id="accCreateError"></p>
-                <button type="submit" class="btn-account-submit heading-font">Guardar mis datos</button>
-            </form>
-
-            <form id="accUnlockView" style="display:none;" onsubmit="submitUnlock(event)">
-                <div class="form-group">
-                    <label for="accPinInput">Tu PIN:</label>
-                    <input type="password" id="accPinInput" inputmode="numeric" pattern="\d{4}" maxlength="4" placeholder="••••" required>
-                </div>
-                <p class="account-error" id="accUnlockError"></p>
-                <button type="submit" class="btn-account-submit heading-font">Ingresar</button>
-                <button type="button" class="btn-account-link" onclick="deleteAccount()">Olvidé mi PIN, borrar datos guardados</button>
-            </form>
-
-            <div id="accProfileView" style="display:none;">
-                <div class="account-profile-row"><span>Nombre</span><strong id="profName"></strong></div>
-                <div class="account-profile-row"><span>WhatsApp</span><strong id="profPhone"></strong></div>
-                <button type="button" class="btn-account-submit heading-font" onclick="editAccount()">Editar mis datos</button>
-                <button type="button" class="btn-account-link" onclick="logoutAccount()">Cerrar sesión</button>
-                <button type="button" class="btn-account-link btn-account-link--danger" onclick="deleteAccount()">Borrar mis datos</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Script de Lógica -->
     <script>
         /* =====================================================================
@@ -1596,8 +1413,6 @@
         const DAY_END_HOUR = 20;    // desde esta hora se muestra la foto de noche
 
         const CART_KEY = "lpa_cart";
-        const ACCOUNT_KEY = "lpa_account";
-        const SESSION_KEY = "lpa_logged_in";
 
         const IMG_FALLBACK = 'data:image/svg+xml;utf8,' + encodeURIComponent(
             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">' +
@@ -1943,165 +1758,9 @@
             window.addEventListener('resize', updateHeroScrollEffect);
         }
 
-        /* ===================== CUENTA (perfil guardado en este dispositivo) ===================== */
-
-        function getAccount() {
-            try {
-                return JSON.parse(localStorage.getItem(ACCOUNT_KEY));
-            } catch {
-                return null;
-            }
-        }
-
-        function saveAccount(acc) {
-            try {
-                localStorage.setItem(ACCOUNT_KEY, JSON.stringify(acc));
-            } catch (err) {
-                console.warn('No se pudieron guardar los datos de la cuenta:', err);
-            }
-        }
-
-        function isLoggedIn() {
-            try {
-                return !!getAccount() && localStorage.getItem(SESSION_KEY) === '1';
-            } catch {
-                return false;
-            }
-        }
-
-        function setSession(active) {
-            try {
-                if (active) localStorage.setItem(SESSION_KEY, '1');
-                else localStorage.removeItem(SESSION_KEY);
-            } catch (err) {
-                console.warn('No se pudo guardar la sesión:', err);
-            }
-        }
-
-        function refreshAccountNav() {
-            const btn = document.getElementById('accountNavBtn');
-            const label = document.getElementById('accountNavLabel');
-            const acc = getAccount();
-
-            if (acc && isLoggedIn()) {
-                label.textContent = acc.name.split(' ')[0];
-                btn.classList.add('is-active');
-            } else {
-                label.textContent = 'Ingresar';
-                btn.classList.remove('is-active');
-            }
-        }
-
-        function setAccountView(view) {
-            document.getElementById('accCreateView').style.display = view === 'create' ? 'block' : 'none';
-            document.getElementById('accUnlockView').style.display = view === 'unlock' ? 'block' : 'none';
-            document.getElementById('accProfileView').style.display = view === 'profile' ? 'block' : 'none';
-        }
-
-        function openAccountModal() {
-            const acc = getAccount();
-
-            if (!acc) {
-                setAccountView('create');
-                document.getElementById('accModalTitle').textContent = 'Guardá tus datos';
-            } else if (!isLoggedIn()) {
-                setAccountView('unlock');
-                document.getElementById('accModalTitle').textContent = `Hola de nuevo, ${acc.name.split(' ')[0]}`;
-                document.getElementById('accUnlockError').textContent = '';
-                document.getElementById('accPinInput').value = '';
-            } else {
-                fillProfileView(acc);
-                setAccountView('profile');
-                document.getElementById('accModalTitle').textContent = 'Mi cuenta';
-            }
-
-            document.getElementById('accountOverlay').classList.add('show');
-            document.getElementById('accountModal').classList.add('show');
-
-            setTimeout(() => {
-                const firstField = document.querySelector('#accCreateView:not([style*="display: none"]) input, #accUnlockView:not([style*="display: none"]) input');
-                if (firstField) firstField.focus();
-            }, 50);
-        }
-
-        function closeAccountModal() {
-            document.getElementById('accountOverlay').classList.remove('show');
-            document.getElementById('accountModal').classList.remove('show');
-        }
-
-        function fillProfileView(acc) {
-            document.getElementById('profName').textContent = acc.name;
-            document.getElementById('profPhone').textContent = acc.phone;
-        }
-
-        function submitCreateAccount(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('accName').value.trim();
-            const phone = document.getElementById('accPhone').value.trim();
-            const pin = document.getElementById('accPin').value.trim();
-
-            if (!name || !phone || !/^\d{4}$/.test(pin)) {
-                document.getElementById('accCreateError').textContent = 'Completá nombre, WhatsApp y un PIN de 4 números.';
-                return;
-            }
-
-            saveAccount({ name, phone, pin });
-            setSession(true);
-            closeAccountModal();
-            refreshAccountNav();
-        }
-
-        function submitUnlock(e) {
-            e.preventDefault();
-
-            const acc = getAccount();
-            const pin = document.getElementById('accPinInput').value.trim();
-
-            if (acc && acc.pin === pin) {
-                setSession(true);
-                closeAccountModal();
-                refreshAccountNav();
-            } else {
-                document.getElementById('accUnlockError').textContent = 'PIN incorrecto. Probá de nuevo.';
-            }
-        }
-
-        function logoutAccount() {
-            setSession(false);
-            closeAccountModal();
-            refreshAccountNav();
-        }
-
-        function editAccount() {
-            const acc = getAccount();
-            if (!acc) return;
-
-            document.getElementById('accName').value = acc.name;
-            document.getElementById('accPhone').value = acc.phone;
-            document.getElementById('accPin').value = acc.pin;
-
-            setAccountView('create');
-            document.getElementById('accModalTitle').textContent = 'Editar tus datos';
-        }
-
-        function deleteAccount() {
-            if (!confirm('¿Borrar tus datos guardados de este dispositivo? No se puede deshacer.')) return;
-
-            try {
-                localStorage.removeItem(ACCOUNT_KEY);
-            } catch (err) {
-                console.warn('No se pudieron borrar los datos de la cuenta:', err);
-            }
-            setSession(false);
-            closeAccountModal();
-            refreshAccountNav();
-        }
-
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
             if (document.getElementById('cartDrawer').classList.contains('show')) toggleCartDrawer();
-            if (document.getElementById('accountModal').classList.contains('show')) closeAccountModal();
         });
 
         /* ===================== CATÁLOGO ===================== */
@@ -2262,14 +1921,17 @@
                 return;
             }
 
+            const custName = document.getElementById('custName').value.trim();
+            if (!custName) {
+                alert("Por favor completá tu nombre y apellido.");
+                document.getElementById('custName').focus();
+                return;
+            }
+
             const payment = document.getElementById('custPayment').value;
             const total = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-            const account = getAccount();
             let msg = `NUEVO PEDIDO - ${STORE_NAME.toUpperCase()}\n\n`;
-
-            if (account && isLoggedIn()) {
-                msg += `Cliente: ${account.name} (${account.phone})\n\n`;
-            }
+            msg += `Cliente: ${custName}\n\n`;
 
             msg += `MODALIDAD: RETIRO EN LOCAL\n`;
             msg += `• Pago: ${payment}\n\n`;
@@ -2294,7 +1956,6 @@
 
         document.getElementById('transferAliasText').innerText = TRANSFER_ALIAS;
 
-        refreshAccountNav();
         renderProducts(products);
         updateCartUI();
     </script>
