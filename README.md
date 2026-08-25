@@ -1,6 +1,6 @@
 # Leo Perez Autoservicio
 
-Landing page de tienda online (almacén, bebidas, lácteos, limpieza, dulces y snacks) con pedidos por WhatsApp, delivery con mapa y cálculo de envío por distancia, retiro en el local, y horario real de atención (bloquea el pedido si el local está cerrado).
+Landing page de tienda online (almacén, bebidas, lácteos, limpieza, dulces y snacks) con pedidos por WhatsApp, retiro en el local, y horario real de atención (bloquea el pedido si el local está cerrado).
 
 Sitio estático: un solo archivo `index.html` (HTML + CSS + JS, sin backend).
 
@@ -37,5 +37,5 @@ Estos archivos van **en la misma carpeta que `index.html`** (raíz del repo), co
 Buscar el bloque `CONFIGURACIÓN DEL NEGOCIO` cerca del final del archivo:
 
 - `WHATSAPP_NUM`: confirmar que sea un número con WhatsApp activo (se armó a partir del teléfono del local).
-- `WEEK_SCHEDULE`, `STORE_COORDS`, dirección y teléfono: ya cargados con los datos reales provistos.
+- `WEEK_SCHEDULE`, dirección y teléfono: ya cargados con los datos reales provistos.
 - Lista de `products`: reemplazar por el catálogo y precios reales.

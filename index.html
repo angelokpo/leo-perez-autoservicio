@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Leo Perez Autoservicio: almacén, bebidas, lácteos y kiosco. Pedís por WhatsApp y te lo llevamos a domicilio.">
+    <meta name="description" content="Leo Perez Autoservicio: almacén, bebidas, lácteos y kiosco. Pedís por WhatsApp y retirás en el local.">
     <meta name="theme-color" content="#141414">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%92%3C/text%3E%3C/svg%3E">
     <title>Leo Perez Autoservicio | Tienda Online</title>
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Leaflet Maps CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <style>
         :root {
             --naranja: #f5821f;
@@ -960,36 +958,6 @@
 
         .qty-label { font-size: 0.85rem; font-weight: 800; min-width: 14px; text-align: center; }
 
-        .delivery-toggle-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .btn-toggle-mode {
-            padding: 9px;
-            border: 1.5px solid #f3c895;
-            background: #fff;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--naranja-deep);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .btn-toggle-mode.active {
-            background: var(--naranja);
-            color: #fff;
-            border-color: var(--naranja);
-            box-shadow: 0 4px 10px rgba(245, 130, 31, 0.25);
-        }
-
         .checkout-box {
             background: var(--crema-bg);
             border-radius: 12px;
@@ -1029,40 +997,6 @@
         }
 
         .form-group textarea { resize: vertical; min-height: 60px; }
-
-        #map-container {
-            margin-top: 8px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1.5px solid #f3c895;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-        }
-
-        #map { width: 100%; height: 180px; z-index: 1; }
-
-        .map-help-text {
-            font-size: 0.72rem;
-            color: var(--naranja-deep);
-            margin-top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 600;
-        }
-
-        .delivery-breakdown {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 8px 12px;
-            margin-top: 8px;
-            border: 1px dashed #f3c895;
-            font-size: 0.75rem;
-            color: var(--naranja-deep);
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            font-weight: 700;
-        }
 
         .pickup-info-box {
             background: #fff;
@@ -1141,14 +1075,6 @@
             padding: 18px 20px;
             background: #fff;
             border-top: 1px solid var(--gris-borde);
-        }
-
-        .calc-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--texto-mutado);
-            margin-bottom: 5px;
         }
 
         .calc-total {
@@ -1383,7 +1309,7 @@
     <div class="marquee-container">
         <div class="marquee-track" id="marqueeTrack">
             <span><i class="fa-solid fa-fire" aria-hidden="true"></i> LEO PEREZ AUTOSERVICIO</span>
-            <span><i class="fa-solid fa-motorcycle" aria-hidden="true"></i> DELIVERY RÁPIDO A TU CASA</span>
+            <span><i class="fa-solid fa-store" aria-hidden="true"></i> RETIRÁ TU PEDIDO EN EL LOCAL</span>
             <span><i class="fa-solid fa-clock" aria-hidden="true"></i> ABIERTO TODOS LOS DÍAS</span>
             <span><i class="fa-solid fa-star" aria-hidden="true"></i> ALMACÉN, BEBIDAS Y KIOSCO</span>
             <a href="https://www.instagram.com/leoperezautoservicio" target="_blank" rel="noopener"><i class="fa-brands fa-instagram" aria-hidden="true"></i> @LEOPEREZAUTOSERVICIO</a>
@@ -1436,7 +1362,7 @@
             <div class="hero-content" id="heroContent">
                 <span class="hero-badge badge-open" id="heroStatusBadge"><i class="fa-solid fa-circle" aria-hidden="true"></i> Abierto ahora</span>
                 <h2 class="heading-font">LEO PEREZ<br><span>AUTOSERVICIO</span></h2>
-                <p>Almacén, bebidas heladas, lácteos y kiosco. Pedís por WhatsApp y te lo llevamos a tu casa.</p>
+                <p>Almacén, bebidas heladas, lácteos y kiosco. Pedís por WhatsApp y lo retirás en el local.</p>
                 <p class="hero-closed-notice" id="heroClosedNotice" style="display:none;"></p>
                 <div class="hero-cta">
                     <a href="#categorias" class="btn-hero-primary heading-font"><i class="fa-solid fa-basket-shopping" aria-hidden="true"></i> Ver productos</a>
@@ -1449,10 +1375,10 @@
     <!-- 5. Beneficios -->
     <div class="info-cards-section">
         <div class="info-card">
-            <i class="fa-solid fa-motorcycle" aria-hidden="true"></i>
+            <i class="fa-solid fa-store" aria-hidden="true"></i>
             <div>
-                <h4>Delivery o Retiro</h4>
-                <p>Envío a domicilio o retiro en el local.</p>
+                <h4>Retiro en el Local</h4>
+                <p>Pedís por WhatsApp y lo retirás en Cervantes 80.</p>
             </div>
         </div>
         <div class="info-card info-card--danger">
@@ -1547,49 +1473,11 @@
             <div id="cartItemsList"></div>
 
             <div class="checkout-box">
-                <h4 class="heading-font"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i> Modalidad de Entrega</h4>
+                <h4 class="heading-font"><i class="fa-solid fa-store" aria-hidden="true"></i> Retiro en el Local</h4>
 
-                <div class="delivery-toggle-container">
-                    <button class="btn-toggle-mode active" id="btnModeDelivery" onclick="setOrderMode('delivery')">
-                        <i class="fa-solid fa-motorcycle" aria-hidden="true"></i> Delivery
-                    </button>
-                    <button class="btn-toggle-mode" id="btnModePickup" onclick="setOrderMode('pickup')">
-                        <i class="fa-solid fa-store" aria-hidden="true"></i> Retiro en Local
-                    </button>
-                </div>
-
-                <div id="deliverySection">
-                    <div class="form-group">
-                        <label for="custAddress">Tu Dirección y Altura:</label>
-                        <input type="text" id="custAddress" placeholder="Ej: Belgrano 450" onchange="searchAddressOnMap()">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="custDetails">Detalles / Descripción del Domicilio (opcional):</label>
-                        <textarea id="custDetails" placeholder="Ej: Casa con rejas negras, portón blanco. Tocar timbre 2B."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="map">Ubicación exacta de entrega (tocá el mapa o arrastrá el pin):</label>
-                        <div id="map-container">
-                            <div id="map"></div>
-                        </div>
-                        <div class="map-help-text">
-                            <i class="fa-solid fa-map-pin" style="color: var(--rojo-brand);" aria-hidden="true"></i>
-                            <span id="coordsLabel">Arrastrá el pin hasta tu casa</span>
-                        </div>
-                        <div class="delivery-breakdown">
-                            <span id="storeLabel"><i class="fa-solid fa-store" aria-hidden="true"></i> Sale desde: Leo Perez Autoservicio</span>
-                            <span id="distanceSummary"><i class="fa-solid fa-route" aria-hidden="true"></i> Distancia: 0 cuadras ($1.000 base)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="pickupSection" style="display: none;">
-                    <div class="pickup-info-box">
-                        <i class="fa-solid fa-circle-check" style="color: #25d366; font-size: 1.1rem;" aria-hidden="true"></i>
-                        <span>¡Retirás sin costo de envío! Te avisamos por WhatsApp cuando esté listo.</span>
-                    </div>
+                <div class="pickup-info-box">
+                    <i class="fa-solid fa-circle-check" style="color: #25d366; font-size: 1.1rem;" aria-hidden="true"></i>
+                    <span>Retirás tu pedido en Cervantes 80, Sunchales. Te avisamos por WhatsApp cuando esté listo.</span>
                 </div>
 
                 <div class="form-group" style="margin-top: 12px;">
@@ -1615,17 +1503,9 @@
         </div>
 
         <div class="cart-drawer-footer">
-            <div class="calc-row">
-                <span>Subtotal productos:</span>
-                <span id="subtotalText">$0</span>
-            </div>
-            <div class="calc-row">
-                <span>Costo de envío:</span>
-                <span id="shippingText">$1.000</span>
-            </div>
             <div class="calc-total">
                 <span>TOTAL:</span>
-                <span id="totalText">$1.000</span>
+                <span id="totalText">$0</span>
             </div>
             <div class="checkout-closed-notice" id="checkoutClosedNotice" style="display:none;">
                 <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
@@ -1657,14 +1537,6 @@
                     <input type="tel" id="accPhone" placeholder="Ej: 3493 443991" required>
                 </div>
                 <div class="form-group">
-                    <label for="accAddress">Dirección habitual (opcional):</label>
-                    <input type="text" id="accAddress" placeholder="Ej: Belgrano 450">
-                </div>
-                <div class="form-group">
-                    <label for="accDetails">Detalles de la casa (opcional):</label>
-                    <textarea id="accDetails" placeholder="Ej: Portón blanco, timbre 2B."></textarea>
-                </div>
-                <div class="form-group">
                     <label for="accPin">PIN de 4 números (para volver a entrar en este celular):</label>
                     <input type="password" id="accPin" inputmode="numeric" pattern="\d{4}" maxlength="4" placeholder="••••" required>
                 </div>
@@ -1685,8 +1557,6 @@
             <div id="accProfileView" style="display:none;">
                 <div class="account-profile-row"><span>Nombre</span><strong id="profName"></strong></div>
                 <div class="account-profile-row"><span>WhatsApp</span><strong id="profPhone"></strong></div>
-                <div class="account-profile-row"><span>Dirección</span><strong id="profAddress"></strong></div>
-                <div class="account-profile-row"><span>Detalles</span><strong id="profDetails"></strong></div>
                 <button type="button" class="btn-account-submit heading-font" onclick="editAccount()">Editar mis datos</button>
                 <button type="button" class="btn-account-link" onclick="logoutAccount()">Cerrar sesión</button>
                 <button type="button" class="btn-account-link btn-account-link--danger" onclick="deleteAccount()">Borrar mis datos</button>
@@ -1694,30 +1564,14 @@
         </div>
     </div>
 
-    <!-- Leaflet Maps JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
     <!-- Script de Lógica -->
     <script>
         /* =====================================================================
            CONFIGURACIÓN DEL NEGOCIO — completar con los datos reales
         ===================================================================== */
         const WHATSAPP_NUM = "5493493443991"; // TEMPORAL: número de prueba
-        const STORE_COORDS = [-30.9422728, -61.5432729]; // Cervantes 80, Sunchales (geolocalizado)
         const STORE_NAME = "Leo Perez Autoservicio";
         const TRANSFER_ALIAS = "angelo.danna555"; // Alias para transferencias / Mercado Pago
-
-        // Límite geográfico de la localidad de Sunchales (fuente: OpenStreetMap/Nominatim),
-        // usado para no aceptar direcciones ni ubicaciones de mapa fuera del pueblo.
-        const SUNCHALES_BOUNDS = { minLat: -30.9678740, maxLat: -30.9247817, minLon: -61.5774281, maxLon: -61.4991315 };
-        const SUNCHALES_PADDING = 0.01; // margen extra en grados para no ser demasiado estricto en los bordes
-
-        function isWithinSunchales(lat, lon) {
-            return lat >= SUNCHALES_BOUNDS.minLat - SUNCHALES_PADDING &&
-                   lat <= SUNCHALES_BOUNDS.maxLat + SUNCHALES_PADDING &&
-                   lon >= SUNCHALES_BOUNDS.minLon - SUNCHALES_PADDING &&
-                   lon <= SUNCHALES_BOUNDS.maxLon + SUNCHALES_PADDING;
-        }
 
         // Horario real de atención. Cada día puede tener uno o más rangos ("09:00" a "13:30", etc).
         // Los rangos que cruzan la medianoche (ej. viernes 17:00 a 01:00) se escriben tal cual,
@@ -1864,13 +1718,6 @@
         if (!prefersReducedMotion) {
             requestAnimationFrame(stepMarquee);
         }
-
-        let orderMode = 'delivery';
-        let currentMarkerCoords = STORE_COORDS;
-        let mapInstance = null;
-        let mapMarker = null;
-        let calculatedBlocks = 0;
-        let shippingCost = 1000;
 
         const products = [
             { id: 1, name: "Yerba Playadito 1kg", cat: "almacen", price: 3400, oldPrice: 3800, img: "yerba.png" },
@@ -2185,8 +2032,6 @@
         function fillProfileView(acc) {
             document.getElementById('profName').textContent = acc.name;
             document.getElementById('profPhone').textContent = acc.phone;
-            document.getElementById('profAddress').textContent = acc.address || 'Sin guardar';
-            document.getElementById('profDetails').textContent = acc.details || 'Sin guardar';
         }
 
         function submitCreateAccount(e) {
@@ -2194,8 +2039,6 @@
 
             const name = document.getElementById('accName').value.trim();
             const phone = document.getElementById('accPhone').value.trim();
-            const address = document.getElementById('accAddress').value.trim();
-            const details = document.getElementById('accDetails').value.trim();
             const pin = document.getElementById('accPin').value.trim();
 
             if (!name || !phone || !/^\d{4}$/.test(pin)) {
@@ -2203,11 +2046,10 @@
                 return;
             }
 
-            saveAccount({ name, phone, address, details, pin });
+            saveAccount({ name, phone, pin });
             setSession(true);
             closeAccountModal();
             refreshAccountNav();
-            prefillCheckoutFromAccount();
         }
 
         function submitUnlock(e) {
@@ -2220,7 +2062,6 @@
                 setSession(true);
                 closeAccountModal();
                 refreshAccountNav();
-                prefillCheckoutFromAccount();
             } else {
                 document.getElementById('accUnlockError').textContent = 'PIN incorrecto. Probá de nuevo.';
             }
@@ -2238,8 +2079,6 @@
 
             document.getElementById('accName').value = acc.name;
             document.getElementById('accPhone').value = acc.phone;
-            document.getElementById('accAddress').value = acc.address || '';
-            document.getElementById('accDetails').value = acc.details || '';
             document.getElementById('accPin').value = acc.pin;
 
             setAccountView('create');
@@ -2259,166 +2098,11 @@
             refreshAccountNav();
         }
 
-        function prefillCheckoutFromAccount() {
-            const acc = getAccount();
-            if (!acc || !isLoggedIn()) return;
-
-            const addressInput = document.getElementById('custAddress');
-            const detailsInput = document.getElementById('custDetails');
-
-            if (acc.address && !addressInput.value) {
-                addressInput.value = acc.address;
-                searchAddressOnMap();
-            }
-            if (acc.details && !detailsInput.value) {
-                detailsInput.value = acc.details;
-            }
-        }
-
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
             if (document.getElementById('cartDrawer').classList.contains('show')) toggleCartDrawer();
             if (document.getElementById('accountModal').classList.contains('show')) closeAccountModal();
         });
-
-        /* ===================== ENTREGA Y MAPA ===================== */
-
-        function setOrderMode(mode) {
-            orderMode = mode;
-            const btnDel = document.getElementById('btnModeDelivery');
-            const btnPick = document.getElementById('btnModePickup');
-            const delSec = document.getElementById('deliverySection');
-            const pickSec = document.getElementById('pickupSection');
-
-            if (mode === 'delivery') {
-                btnDel.classList.add('active');
-                btnPick.classList.remove('active');
-                delSec.style.display = 'block';
-                pickSec.style.display = 'none';
-                if (mapInstance) {
-                    setTimeout(() => mapInstance.invalidateSize(), 200);
-                }
-            } else {
-                btnPick.classList.add('active');
-                btnDel.classList.remove('active');
-                delSec.style.display = 'none';
-                pickSec.style.display = 'block';
-            }
-            calcTotals();
-        }
-
-        function getDistanceMeters(lat1, lon1, lat2, lon2) {
-            const R = 6371e3;
-            const phi1 = lat1 * Math.PI / 180;
-            const phi2 = lat2 * Math.PI / 180;
-            const deltaPhi = (lat2 - lat1) * Math.PI / 180;
-            const deltaLambda = (lon2 - lon1) * Math.PI / 180;
-
-            const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
-                      Math.cos(phi1) * Math.cos(phi2) *
-                      Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-            return R * c;
-        }
-
-        /* Costo de envío: $1000 base + $100 por cuadra desde el local */
-        function updateShippingByDistance() {
-            const distance = getDistanceMeters(
-                STORE_COORDS[0], STORE_COORDS[1],
-                currentMarkerCoords[0], currentMarkerCoords[1]
-            );
-
-            calculatedBlocks = Math.round(distance / 100);
-            shippingCost = 1000 + (calculatedBlocks * 100);
-
-            document.getElementById('distanceSummary').innerHTML = `<i class="fa-solid fa-route" aria-hidden="true"></i> Distancia: <b>${calculatedBlocks} cuadras</b> ($1.000 base + ${calculatedBlocks}x$100)`;
-
-            calcTotals();
-        }
-
-        function initDeliveryMap() {
-            if (mapInstance !== null) return;
-
-            const bounds = L.latLngBounds(
-                [SUNCHALES_BOUNDS.minLat - SUNCHALES_PADDING, SUNCHALES_BOUNDS.minLon - SUNCHALES_PADDING],
-                [SUNCHALES_BOUNDS.maxLat + SUNCHALES_PADDING, SUNCHALES_BOUNDS.maxLon + SUNCHALES_PADDING]
-            );
-
-            mapInstance = L.map('map', {
-                maxBounds: bounds,
-                maxBoundsViscosity: 1.0,
-                minZoom: 13
-            }).setView(STORE_COORDS, 15);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors',
-                maxZoom: 19
-            }).addTo(mapInstance);
-
-            L.circleMarker(STORE_COORDS, {
-                color: '#f5821f',
-                fillColor: '#ffc107',
-                fillOpacity: 0.95,
-                radius: 8,
-                weight: 3
-            }).addTo(mapInstance).bindPopup(`<b>${STORE_NAME}</b>`);
-
-            mapMarker = L.marker(currentMarkerCoords, { draggable: true }).addTo(mapInstance);
-
-            function handleMarkerMove(lat, lng) {
-                if (!isWithinSunchales(lat, lng)) {
-                    mapMarker.setLatLng(currentMarkerCoords);
-                    document.getElementById('coordsLabel').innerText = 'Ese punto está fuera de Sunchales. Elegí una ubicación dentro del pueblo.';
-                    return;
-                }
-                currentMarkerCoords = [lat, lng];
-                document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${lat.toFixed(4)}, Lng ${lng.toFixed(4)}`;
-                updateShippingByDistance();
-            }
-
-            mapMarker.on('dragend', function () {
-                const position = mapMarker.getLatLng();
-                handleMarkerMove(position.lat, position.lng);
-            });
-
-            mapInstance.on('click', function(e) {
-                handleMarkerMove(e.latlng.lat, e.latlng.lng);
-            });
-
-            updateShippingByDistance();
-        }
-
-        async function searchAddressOnMap() {
-            const query = document.getElementById('custAddress').value.trim();
-            if (!query) return;
-
-            const coordsLabel = document.getElementById('coordsLabel');
-            const fullQuery = `${query}, Sunchales, Santa Fe, Argentina`;
-            const viewbox = `${SUNCHALES_BOUNDS.minLon},${SUNCHALES_BOUNDS.maxLat},${SUNCHALES_BOUNDS.maxLon},${SUNCHALES_BOUNDS.minLat}`;
-
-            try {
-                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullQuery)}&countrycodes=ar&viewbox=${viewbox}&bounded=1`);
-                const data = await response.json();
-                const match = data.find(r => isWithinSunchales(parseFloat(r.lat), parseFloat(r.lon)));
-
-                if (!match) {
-                    coordsLabel.innerText = 'No encontramos esa dirección en Sunchales. Revisá la calle y la altura.';
-                    return;
-                }
-
-                const lat = parseFloat(match.lat);
-                const lon = parseFloat(match.lon);
-                currentMarkerCoords = [lat, lon];
-                if (mapInstance && mapMarker) {
-                    mapInstance.setView([lat, lon], 16);
-                    mapMarker.setLatLng([lat, lon]);
-                    coordsLabel.innerText = `Ubicación: ${match.display_name.split(',')[0]}`;
-                    updateShippingByDistance();
-                }
-            } catch (err) {
-                console.log("Búsqueda no disponible");
-            }
-        }
 
         /* ===================== CATÁLOGO ===================== */
 
@@ -2486,16 +2170,6 @@
 
             drawer.classList.toggle('show');
             overlay.classList.toggle('show');
-
-            if (opening) {
-                prefillCheckoutFromAccount();
-                if (orderMode === 'delivery') {
-                    setTimeout(() => {
-                        initDeliveryMap();
-                        if (mapInstance) mapInstance.invalidateSize();
-                    }, 300);
-                }
-            }
         }
 
         function addToCart(id) {
@@ -2556,12 +2230,8 @@
         }
 
         function calcTotals() {
-            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-            const finalShipping = (orderMode === 'delivery' && cart.length > 0) ? shippingCost : 0;
-            const total = subtotal + finalShipping;
+            const total = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
 
-            document.getElementById('subtotalText').innerText = `$${subtotal.toLocaleString('es-AR')}`;
-            document.getElementById('shippingText').innerText = orderMode === 'delivery' ? `$${finalShipping.toLocaleString('es-AR')}` : 'GRATIS';
             document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
 
             const isTransfer = document.getElementById('custPayment').value === 'Transferencia / Mercado Pago';
@@ -2593,59 +2263,23 @@
             }
 
             const payment = document.getElementById('custPayment').value;
-            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            const total = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
             const account = getAccount();
-            let finalShipping = 0;
             let msg = `NUEVO PEDIDO - ${STORE_NAME.toUpperCase()}\n\n`;
 
             if (account && isLoggedIn()) {
                 msg += `Cliente: ${account.name} (${account.phone})\n\n`;
             }
 
-            if (orderMode === 'delivery') {
-                const address = document.getElementById('custAddress').value.trim();
-                if (!address) {
-                    alert("Por favor completá tu dirección exacta.");
-                    document.getElementById('custAddress').focus();
-                    return;
-                }
-
-                if (!isWithinSunchales(currentMarkerCoords[0], currentMarkerCoords[1])) {
-                    alert("El punto marcado en el mapa está fuera de Sunchales. Solo hacemos delivery dentro del pueblo: ajustá el pin o retirá por el local.");
-                    return;
-                }
-
-                const details = document.getElementById('custDetails').value.trim();
-                finalShipping = shippingCost;
-                const googleMapsUrl = `https://www.google.com/maps?q=${currentMarkerCoords[0]},${currentMarkerCoords[1]}`;
-
-                msg += `MODALIDAD: DELIVERY A DOMICILIO\n`;
-                msg += `• Dirección: ${address}\n`;
-                if (details) {
-                    msg += `• Descripción/Detalles: ${details}\n`;
-                }
-                msg += `• Ubicación GPS: ${googleMapsUrl}\n`;
-                msg += `• Distancia: ${calculatedBlocks} cuadras\n`;
-                msg += `• Pago: ${payment}\n\n`;
-            } else {
-                finalShipping = 0;
-
-                msg += `MODALIDAD: RETIRO EN LOCAL\n`;
-                msg += `• Costo de envío: GRATIS\n`;
-                msg += `• Pago: ${payment}\n\n`;
-            }
-
-            const total = subtotal + finalShipping;
+            msg += `MODALIDAD: RETIRO EN LOCAL\n`;
+            msg += `• Pago: ${payment}\n\n`;
 
             msg += `DETALLE DEL PEDIDO\n`;
             cart.forEach(item => {
                 msg += `• ${item.qty}x ${item.name} - $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
             });
 
-            msg += `\nRESUMEN\n`;
-            msg += `• Productos: $${subtotal.toLocaleString('es-AR')}\n`;
-            msg += `• Envío: ${finalShipping === 0 ? 'GRATIS' : '$' + finalShipping.toLocaleString('es-AR')}\n`;
-            msg += `• TOTAL: $${total.toLocaleString('es-AR')}`;
+            msg += `\nTOTAL: $${total.toLocaleString('es-AR')}`;
 
             if (payment === 'Transferencia / Mercado Pago') {
                 msg += `\n\nDATOS PARA TRANSFERIR\n`;
