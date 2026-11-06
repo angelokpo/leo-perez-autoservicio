@@ -1164,7 +1164,12 @@
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
         }
-    </style>
+    /* Firma: "Hecho por" + logo de tranqui. con link a su Instagram */
+.footer-credit{display:flex;align-items:center;justify-content:center;gap:8px}
+.footer-credit-logo{display:inline-flex;align-items:center;text-decoration:none !important;opacity:.6;transition:opacity .2s}
+.footer-credit-logo:hover{opacity:1}
+.footer-credit-logo img{height:18px;width:auto;display:block}
+</style>
 </head>
 <body>
 
@@ -1309,7 +1314,7 @@
 
         <div class="footer-bottom">
             <p>&copy; <span id="footerYear"></span> Leo Perez Autoservicio · Sunchales, Santa Fe · Todos los derechos reservados</p>
-            <p class="footer-credit">Hecho por <a href="https://www.instagram.com/angelodanna_" target="_blank" rel="noopener">Ángelo Danna</a></p>
+            <p class="footer-credit">Hecho por <a class="footer-credit-logo" href="https://www.instagram.com/tranqui_software" target="_blank" rel="noopener" aria-label="tranqui. en Instagram"><img src="tranqui-logo-blanco.png" alt="tranqui."></a></p>
         </div>
     </footer>
 
